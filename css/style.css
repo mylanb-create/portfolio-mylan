@@ -123,6 +123,28 @@ header {
 }
 
 /* ================================
+   PAGE-WIDE RED → BLACK GRADIENT
+   Applied on body so it covers hero
+   AND bleeds into the projects below
+================================ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    /* central glow burst */
+    radial-gradient(ellipse 80% 55% at 50% 20%, rgba(192,57,43,0.55) 0%, transparent 55%),
+    /* left warmth */
+    radial-gradient(ellipse 50% 60% at 10% 30%, rgba(160,30,15,0.35) 0%, transparent 55%),
+    /* right warmth */
+    radial-gradient(ellipse 50% 60% at 90% 15%, rgba(160,30,15,0.3) 0%, transparent 55%),
+    /* top base */
+    linear-gradient(to bottom, #3a0e08 0%, #200806 18%, #120403 35%, #080808 60%, #080808 100%);
+}
+
+/* ================================
    HERO — full width, centered
 ================================ */
 .hero {
@@ -132,59 +154,56 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 80px; /* header: top16 + h64 */
-  overflow: hidden;
-  /* Full-width rich red gradient */
-  background:
-    radial-gradient(ellipse 70% 80% at 50% 40%, rgba(192,57,43,0.72) 0%, transparent 58%),
-    radial-gradient(ellipse 50% 60% at 20% 70%, rgba(140,25,15,0.45) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 60% at 80% 20%, rgba(160,30,15,0.4) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 40% at 50% 95%, rgba(100,15,8,0.5) 0%, transparent 60%),
-    linear-gradient(160deg, #1a0705 0%, #32100a 25%, #420f09 50%, #2a0907 75%, #0a0303 100%);
+  padding-top: 80px;
+  overflow: visible; /* let gradient bleed through */
+  background: transparent; /* gradient handled by body::after */
+  z-index: 1;
 }
 
-/* animated glow blobs — on the hero itself */
+/* animated glow blobs */
 .hero::before {
   content: '';
   position: absolute;
-  top: 10%;
-  left: 15%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(ellipse at center, rgba(192,57,43,0.3) 0%, transparent 65%);
+  top: 5%;
+  left: 10%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse at center, rgba(192,57,43,0.28) 0%, transparent 65%);
   pointer-events: none;
   animation: pulse-glow 4s ease-in-out infinite;
+  z-index: 0;
 }
 .hero::after {
   content: '';
   position: absolute;
-  bottom: 5%;
-  right: 10%;
-  width: 400px;
-  height: 400px;
+  top: 0%;
+  right: 5%;
+  width: 500px;
+  height: 500px;
   background: radial-gradient(ellipse at center, rgba(192,57,43,0.2) 0%, transparent 65%);
   pointer-events: none;
   animation: pulse-glow 4s ease-in-out infinite 2s;
+  z-index: 0;
 }
 
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.7; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.1); }
+  50%       { opacity: 1;   transform: scale(1.12); }
 }
 
-/* LOGO + tagline — centered */
+/* LOGO + tagline — centered, tight */
 .hero-logo-wrap {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 16px;          /* serré, proche du logo */
   text-align: center;
 }
 
 .hero-logo-wrap img {
-  width: clamp(220px, 28vw, 400px);
+  width: clamp(220px, 28vw, 380px);
   height: auto;
   animation: logo-glow 3.5s ease-in-out infinite;
 }
@@ -198,17 +217,19 @@ header {
   }
 }
 
+/* Tagline — grande, bold, impactante */
 .hero-tagline {
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(16px, 2vw, 24px);
-  font-weight: 700;
-  color: rgba(245, 245, 245, 0.88);
-  letter-spacing: 0.02em;
-  line-height: 1.4;
+  font-size: clamp(26px, 4vw, 56px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
   text-align: center;
+  text-transform: uppercase;
 }
 
-/* hide old right panel if still in HTML */
+/* hide old right panel */
 .hero-right { display: none; }
 
 /* ================================
@@ -218,6 +239,8 @@ header {
   position: relative;
   z-index: 1;
   width: 100%;
+  /* subtle fade-in from transparent so gradient bleeds up from hero */
+  background: linear-gradient(to bottom, transparent 0%, var(--black) 120px);
 }
 
 .projects-list {
