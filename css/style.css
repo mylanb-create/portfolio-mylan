@@ -34,6 +34,8 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   cursor: default;
+  position: relative;
+  isolation: isolate; /* crée un stacking context pour que z-index:-1 reste sous le body */
 }
 
 /* ================================
@@ -132,7 +134,7 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   background:
     /* central glow burst */
     radial-gradient(ellipse 80% 55% at 50% 20%, rgba(192,57,43,0.55) 0%, transparent 55%),
