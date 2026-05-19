@@ -219,14 +219,14 @@ body::after {
   }
 }
 
-/* Tagline — grosse, Poppins light comme avant */
+/* Tagline — bold massive comme "Me contacter" */
 .hero-tagline {
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(20px, 2.8vw, 38px);
-  font-weight: 300;
-  color: rgba(245, 245, 245, 0.72);
-  letter-spacing: 0.02em;
-  line-height: 1.5;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 5.5vw, 80px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   text-align: center;
 }
 
